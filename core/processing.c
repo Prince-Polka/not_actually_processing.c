@@ -18,6 +18,8 @@ int width = 100,
     height = 100,
     loop = 1;
 
+double mouseX,mouseY,pmouseX,pmouseY;
+
 void size(int w, int h){
   width = w;
   height = h;
@@ -51,7 +53,11 @@ int main(){
 
     starttime=glfwGetTimerValue();
     while(!glfwWindowShouldClose(window)) {
+      glfwGetCursorPos(window, &mouseX, &mouseY);
+      uniform(vec2,u_mouse,mouseX,mouseY);
       draw();
+      pmouseX = mouseX;
+      pmouseY = mouseY;
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
       glfwWaitEvents();
