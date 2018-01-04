@@ -115,64 +115,65 @@ GLFWglproc
 
 #define shader glUseProgram
 
+#define STRINGIFY(x)(#x)
+#define KLISTRA(x)(x = glfwGetProcAddress(STRINGIFY(x)));
+
 unsigned int RENDERER;
 
 
 
 void klistra(){
 
-glGetUniformLocation = glfwGetProcAddress("glGetUniformLocation");
-glCreateShader = glfwGetProcAddress("glCreateShader");
-glCreateProgram = glfwGetProcAddress("glCreateProgram");
-glShaderSource = glfwGetProcAddress("glShaderSource");
-glCompileShader = glfwGetProcAddress("glCompileShader");
-glAttachShader = glfwGetProcAddress("glAttachShader");
-glLinkProgram = glfwGetProcAddress("glLinkProgram");
-glUseProgram = glfwGetProcAddress("glUseProgram");
+KLISTRA(glGetUniformLocation)
+KLISTRA(glCreateShader)
+KLISTRA(glCreateProgram)
+KLISTRA(glShaderSource)
+KLISTRA(glCompileShader)
+KLISTRA(glAttachShader)
+KLISTRA(glLinkProgram)
+KLISTRA(glUseProgram)
 
-// glDrawArrays = glfwGetProcAddress("glDrawArrays") works by default
+KLISTRA(glUniform1f)
+KLISTRA(glUniform2f)
+KLISTRA(glUniform3f)
+KLISTRA(glUniform4f)
 
-glUniform1f = glfwGetProcAddress("glUniform1f");
-glUniform2f = glfwGetProcAddress("glUniform2f");
-glUniform3f = glfwGetProcAddress("glUniform3f");
-glUniform4f = glfwGetProcAddress("glUniform4f");
+KLISTRA(glUniform1i)
+KLISTRA(glUniform2i)
+KLISTRA(glUniform3i)
+KLISTRA(glUniform4i)
 
-glUniform1i = glfwGetProcAddress("glUniform1i");
-glUniform2i = glfwGetProcAddress("glUniform2i");
-glUniform3i = glfwGetProcAddress("glUniform3i");
-glUniform4i = glfwGetProcAddress("glUniform4i");
+KLISTRA(glUniform1ui)
+KLISTRA(glUniform2ui)
+KLISTRA(glUniform3ui)
+KLISTRA(glUniform4ui)
 
-glUniform1ui = glfwGetProcAddress("glUniform1ui");
-glUniform2ui = glfwGetProcAddress("glUniform2ui");
-glUniform3ui = glfwGetProcAddress("glUniform3ui");
-glUniform4ui = glfwGetProcAddress("glUniform4ui");
+KLISTRA(glUniform1fv)
+KLISTRA(glUniform2fv)
+KLISTRA(glUniform3fv)
+KLISTRA(glUniform4fv)
 
-glUniform1fv = glfwGetProcAddress("glUniform1fv");
-glUniform2fv = glfwGetProcAddress("glUniform2fv");
-glUniform3fv = glfwGetProcAddress("glUniform3fv");
-glUniform4fv = glfwGetProcAddress("glUniform4fv");
+KLISTRA(glUniform1iv)
+KLISTRA(glUniform2iv)
+KLISTRA(glUniform3iv)
+KLISTRA(glUniform4iv)
 
-glUniform1iv = glfwGetProcAddress("glUniform1iv");
-glUniform2iv = glfwGetProcAddress("glUniform2iv");
-glUniform3iv = glfwGetProcAddress("glUniform3iv");
-glUniform4iv = glfwGetProcAddress("glUniform4iv");
+KLISTRA(glUniform1uiv)
+KLISTRA(glUniform2uiv)
+KLISTRA(glUniform3uiv)
+KLISTRA(glUniform4uiv)
 
-glUniform1uiv = glfwGetProcAddress("glUniform1uiv");
-glUniform2uiv = glfwGetProcAddress("glUniform2uiv");
-glUniform3uiv = glfwGetProcAddress("glUniform3uiv");
-glUniform4uiv = glfwGetProcAddress("glUniform4uiv");
+KLISTRA(glUniformMatrix2fv)
+KLISTRA(glUniformMatrix3fv)
+KLISTRA(glUniformMatrix4fv)
+KLISTRA(glUniformMatrix2x3fv)
+KLISTRA(glUniformMatrix3x2fv)
+KLISTRA(glUniformMatrix2x4fv)
 
-glUniformMatrix2fv = glfwGetProcAddress("glUniformMatrix2fv");
-glUniformMatrix3fv = glfwGetProcAddress("glUniformMatrix3fv");
-glUniformMatrix4fv = glfwGetProcAddress("glUniformMatrix4fv");
+KLISTRA(glUniformMatrix4x2fv)
+KLISTRA(glUniformMatrix3x4fv)
+KLISTRA(glUniformMatrix4x3fv)
 
-glUniformMatrix2x3fv = glfwGetProcAddress("glUniformMatrix2x3fv");
-glUniformMatrix3x2fv = glfwGetProcAddress("glUniformMatrix3x2fv");
-glUniformMatrix2x4fv = glfwGetProcAddress("glUniformMatrix2x4fv");
-
-glUniformMatrix4x2fv = glfwGetProcAddress("glUniformMatrix4x2fv");
-glUniformMatrix3x4fv = glfwGetProcAddress("glUniformMatrix3x4fv");
-glUniformMatrix4x3fv = glfwGetProcAddress("glUniformMatrix4x3fv");
 }
 
 GLuint loadShader(char *fragFilename,char *vertFilename){
