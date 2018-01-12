@@ -3,12 +3,12 @@
 /* the data must be packed and aligned, otherwise assembly may cause sigsev */
 typedef struct PVector {double x,y,z,w;} __attribute__ ((aligned (32),packed)) PVector;
 
-/* defines a macro to execute an AVX instruction*/
-#define AVX(function,instruction) \
+/* AVX macro that makes a AT&T syntax*/
+#define AVX(function,mnemonic) \
 PVector static inline function \
 (PVector A, PVector B){PVector ret; asm( \
 "VMOVDQA %1,%%ymm1;\n" \
-#instruction " %2,%%ymm1,%%ymm0;\n" \
+#mnemonic " %2,%%ymm1,%%ymm0;\n" \
 "VMOVDQA %%ymm0,%0;\n" \
 : "=m" (ret): "m" (A) ,"m" (B));return ret;}
 /*
@@ -17,10 +17,28 @@ second argument the x86 mnemonic
 mnemonics can be found at the right-hand side of this page
 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 */
+
+/* this makes functions for add subtract multiply and divide of doubles */
 AVX(add,VADDPD)
-AVX(mult,vmulpd)
+AVX(sub,VSUBPD)
+AVX(mult,VMULPD)
 AVX(div,VDIVPD)
-/* this makes functions for add multiply and divide of doubles */
+
+AVX(addsub,VADDSUBPD)
+    
+// AVX(sqrt,VSQRTPD) only one argument
+
+AVX(min,VPMIND)
+AVC(max,VPMAXD)
+    
+// bitwise
+AVX(and,VANDPD)
+AVX(andnot,VANDNPD)
+AVX(xor,VORPD)
+AVX(xor,VXORPD)
+//AVX(ceil,VROUNDPD) imm8
+//AVX(floor,VROUNDPD) imm8
+
     
 /* convenience function to make or set a PVector */
 PVector new_PVector(double X,double Y,double Z, double W){
