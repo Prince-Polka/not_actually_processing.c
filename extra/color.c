@@ -31,8 +31,14 @@ Shuffles initializer supplied in order r,g,b,a to order b,g,r,a
 
 */
 int constrain(int x,int min, int max){
-int temp = min*(x<min) + max*(x>max);
-return temp + x * !temp;
+
+// int temp = min*(x<min) + max*(x>max);
+// return temp + x * !temp;
+// Above code works (for most inputs) and is branchless, but fails if min or max = 0
+// Naive implementation works for that edge case but may be slow? (haven't looked at generated assembly)
+if(x<min) return min; 
+if(x>max) return max;
+return x;
 }
 
 #define GRAY(v){v,v,v,255}
