@@ -13,29 +13,9 @@ glCreateProgram
 glLinkProgram
 glUseProgram
 
-glDrawArrays
+glDrawArrays, works by default
 
 gluniform + suffix
-
-*/
-
-/*
-
-glGetUniformLocation     GLint glGetUniformLocation(	GLuint program,	const GLchar *name);
-
-glCreateShader           GLuint glCreateShader(	GLenum shaderType);
-glCreateProgram          GLuint glCreateProgram(	void);
-
-glShaderSource           void glShaderSource (	GLuint shader, GLsizei count, const GLchar **string, const GLint *length);
-glCompileShader          void glCompileShader(	GLuint shader);
-glAttachShader           void glAttachShader (	GLuint program, GLuint shader);
-
-glLinkProgram            void glLinkProgram(	GLuint program);
-glUseProgram             void glUseProgram (	GLuint program);
-
-glDrawArrays             void glDrawArrays(	GLenum mode,GLint first,GLsizei count);
-
-gluniform + suffix       void
 
 */
 #define GL_VERTEX_SHADER 0x8B31
@@ -45,11 +25,15 @@ gluniform + suffix       void
 //#define GL_DEPTH_BUFFER_BIT 0x100
 //#define GL_TRIANGLE_STRIP 5
 //(*glDrawArrays)(GLenum,GLint,GLsizei); works by default
-GLint (*glGetUniformLocation)(GLuint, const GLchar*);
-GLuint (*glCreateShader)(GLenum);
-GLuint (*glCreateProgram)(void);
 
-GLFWglproc
+GLint
+(*glGetUniformLocation)(GLuint, const GLchar*);
+
+GLuint
+(*glCreateShader)(GLenum),
+(*glCreateProgram)(void);
+
+void
 (*glShaderSource)(GLuint,GLsizei,const GLchar **, const GLint *),
 (*glCompileShader)(GLuint),
 (*glAttachShader)(GLuint,GLuint),
@@ -96,7 +80,8 @@ GLFWglproc
 
 (*glUniformMatrix4x2fv)(GLint,GLsizei,GLboolean,const GLfloat *),
 (*glUniformMatrix3x4fv)(GLint,GLsizei,GLboolean,const GLfloat *),
-(*glUniformMatrix4x3fv)(GLint,GLsizei,GLboolean,const GLfloat *);
+(*glUniformMatrix4x3fv)(GLint,GLsizei,GLboolean,const GLfloat *)
+;
 
 #define FLOAT 1f
 #define vec2 2f
@@ -113,17 +98,19 @@ GLFWglproc
 #define uniformv(t,u,a...)uniform(t##v,u,a)
 #define uniformarray(t,u,a...)uniformv(t,u,a)
 
-#define shader glUseProgram
+/* despite all the work ti get this macro working i consider rewriting the set uniform code some time */
 
-#define STRINGIFY(x)(#x)
-#define KLISTRA(x)(x = glfwGetProcAddress(STRINGIFY(x)));
+#define shader glUseProgram // this name may be "dangerous"
+
+#define KLISTRA(x)x=(void*)glfwGetProcAddress(#x);
+/*
+wglGetProcAddress windows specific
+https://www.khronos.org/opengl/wiki/Load_OpenGL_Functions
+*/
 
 unsigned int RENDERER;
 
-
-
 void klistra(){
-
 KLISTRA(glGetUniformLocation)
 KLISTRA(glCreateShader)
 KLISTRA(glCreateProgram)
