@@ -45,10 +45,16 @@ double inline cos(double x){asm("fldl %0;\nFCOS;\nfstpl %0;\n":"+m"(x));return x
 double inline sqrt(double x){asm("fldl %0;\nFSQRT;\nfstpl %0;\n":"+m"(x));return x;}
 //double inline atan(double x){asm("fldl %0;\nFPATAN;\nfstpl %0;\n":"+m"(x));return x;}
 
-
+/* FAILS when min or max is 0  !!!! */
 clamp(int x,int min, int max){
 int temp = min*(x<min) + max*(x>max);
 return temp + x * !temp;
+}
+
+int constrain(int x,int min, int max){
+if(x<min) return min; 
+if(x>max) return max;
+return x;
 }
 
 #define PI 3.14159265359L
