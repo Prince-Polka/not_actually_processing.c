@@ -1,4 +1,34 @@
 /*
+something like this may work, have not tested in tcc
+https://stackoverflow.com/questions/11761703/overloading-macro-on-number-of-arguments/
+
+color_3 (a,b,c) {puts("3");}
+color_2 (a,b){puts("2");}
+color_1 (a){puts("1");}
+color_0 (void){puts("0");}
+
+typedef union color{
+struct {char b,g,r,a;}; // change to  a,b,g,r for opengl
+signed int i;
+unsigned int u;
+}color;
+
+#define GET_MACRO(_0,_1,_2,_3,NAME,...) NAME
+#define color(x...) GET_MACRO(_0,## x , color_3 , color_2 , color_1 , color_0 )(x)
+
+int main(void){
+color foo;
+foo.r = 25;
+printf("%d\n",foo.r);
+color();
+color(1);
+color(2,2);
+color(3,3,3);
+}
+
+*/
+
+/*
 https://processing.org/reference/color_.html
 colors in processing java are signed integers
 
