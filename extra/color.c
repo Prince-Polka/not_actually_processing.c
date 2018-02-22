@@ -8,7 +8,7 @@ color_1 (a){puts("1");}
 color_0 (void){puts("0");}
 
 typedef union color{
-struct {char b,g,r,a;}; // change to  a,b,g,r for opengl
+struct {char b,g,r,a;};
 signed int i;
 unsigned int u;
 }color;
